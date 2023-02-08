@@ -27,6 +27,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.samples.petclinic.owner.Owner;
+import org.springframework.samples.petclinic.owner.OwnerRepository;
 import org.springframework.samples.petclinic.vet.VetRepository;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,7 +37,8 @@ class PetClinicIntegrationTests {
 
 	@LocalServerPort
 	int port;
-
+	@Autowired
+	OwnerRepository repository;
 	@Autowired
 	private VetRepository vets;
 
@@ -53,6 +56,11 @@ class PetClinicIntegrationTests {
 		RestTemplate template = builder.rootUri("http://localhost:" + port).build();
 		ResponseEntity<String> result = template.exchange(RequestEntity.get("/owners/1").build(), String.class);
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+	}
+	@Test
+	void findPet() {
+		Owner  owner = repository.findById(1);
+		System.out.println(owner.getLastName());
 	}
 
 }

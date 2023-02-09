@@ -29,6 +29,8 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.owner.Owner;
 import org.springframework.samples.petclinic.owner.OwnerRepository;
+import org.springframework.samples.petclinic.owner.Pet;
+import org.springframework.samples.petclinic.owner.PetRepository;
 import org.springframework.samples.petclinic.vet.VetRepository;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,7 +40,7 @@ class PetClinicIntegrationTests {
 	@LocalServerPort
 	int port;
 	@Autowired
-	OwnerRepository repository;
+	PetRepository repository;
 	@Autowired
 	private VetRepository vets;
 
@@ -59,8 +61,8 @@ class PetClinicIntegrationTests {
 	}
 	@Test
 	void findPet() {
-		Owner  owner = repository.findById(1);
-		System.out.println(owner.getLastName());
+		Pet pet = repository.findById(1);
+		System.out.println(pet.getName());
 	}
 
 }
